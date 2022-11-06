@@ -1,16 +1,16 @@
 import React from "react";
 import { useState } from "react";
-import { addTransaction } from "../pages/api/Transactions";
 
 import styles from "./transactionsForm.module.css";
 
-const TransactionForm = () => {
+const TransactionForm = (props) => {
   const [accountId, setAccountId] = useState("");
   const [amount, setAmount] = useState("");
 
   const onSubmitClick = (e) => {
-    e.preventDefault();
-    addTransaction({ account_id: accountId, amount: amount });
+    props.onSubmitClick(e, accountId, amount);
+    setAccountId("");
+    setAmount("");
   };
 
   return (
