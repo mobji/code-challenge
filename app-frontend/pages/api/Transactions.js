@@ -1,10 +1,10 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_URL = "https://infra.devskills.app/api/accounting";
 
 export async function addTransaction(data) {
   const response = await fetch(`${API_URL}/transaction`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ ...data }),
+    body: JSON.stringify(data),
   });
   return response.json();
 }
