@@ -12,8 +12,10 @@ import styles from "./transactions.module.css";
 
 const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const saveTransaction = async (e, accountId, amount) => {
+    setLoading(true);
     e.preventDefault();
     const response = await addTransaction({
       account_id: accountId,
@@ -28,6 +30,7 @@ const Transactions = () => {
       ...transactions,
     ];
     setTransactions(transactionsArray);
+    setLoading(false);
   };
 
   const loadTransactions = async () => {
@@ -45,7 +48,7 @@ const Transactions = () => {
         <TransactionForm onSubmitClick={saveTransaction} />
       </div>
       <div className={styles.column}>
-        <TransactionsList transactions={transactions} />
+        <TransactionsList transactions={transactions} loading={loading} />
       </div>
     </div>
   );

@@ -1,20 +1,30 @@
 import React from "react";
 import { useState } from "react";
 
+import { UUIDVerification } from "../helpers/helpers";
+
 import styles from "./transactionsForm.module.css";
 
 const TransactionForm = (props) => {
   const [accountId, setAccountId] = useState("");
   const [amount, setAmount] = useState("");
+  const [validationhint, setValidationhint] = useState("");
 
   const onSubmitClick = (e) => {
-    props.onSubmitClick(e, accountId, amount);
-    setAccountId("");
-    setAmount("");
+    e.preventDefault();
+    setValidationhint("");
+    if (UUIDVerification(accountId)) {
+      props.onSubmitClick(e, accountId, amount);
+      setAccountId("");
+      setAmount("");
+    } else {
+      setValidationhint("The account ID is not correct");
+    }
   };
 
   return (
     <form>
+      <p>{validationhint}</p>
       <input
         className={styles.input}
         id="account_id"

@@ -4,12 +4,14 @@ import styles from "./transactionsList.module.css";
 const TransactionsList = (props) => {
   return (
     <div className={styles.cards}>
-      {props.transactions.map((transaction) => card(transaction))}
+      {props.transactions.length === 0 || (props.loading && <p>Loading ...</p>)}
+      {props.transactions.length > 0 &&
+        props.transactions.map((transaction) => Card(transaction))}
     </div>
   );
 };
 
-const card = ({ transaction_id, account_id, amount, balance = null }) => {
+const Card = ({ transaction_id, account_id, amount, balance = null }) => {
   const TransactionDirection = amount > 0 ? " to " : " from ";
   return (
     <div
